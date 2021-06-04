@@ -4,6 +4,10 @@ to deal with. If you have objects that are logged or write into files where
 masking is required, and you are already using Jackson ObjectMapper solution in 
 your application, this library might be of some help.
 
+[![Java CI with Maven](https://github.com/javiercanillas/jackson-masker/actions/workflows/maven-build.yml/badge.svg)](https://github.com/javiercanillas/jackson-masker/actions/workflows/maven-build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=javiercanillas_jackson-masker&metric=alert_status)](https://sonarcloud.io/dashboard?id=javiercanillas_jackson-masker)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=javiercanillas_jackson-masker&metric=coverage)](https://sonarcloud.io/dashboard?id=javiercanillas_jackson-masker)
+---
 ## How to use
 Lets suppose you have an entity that has an email as part of its attributes:
 ```java
