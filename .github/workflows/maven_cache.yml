@@ -1,0 +1,11 @@
+- name: Maven Cache
+  # You may pin to the exact commit or the version.
+  # uses: skjolber/maven-cache-github-action@358c6249a8435d41794af43a2de43d935e2c9a3c
+  uses: skjolber/maven-cache-github-action@v1
+  with:
+    # Build step step, i.e. restore or save
+    step: 
+    # Maximum git history depth to search for changes to build files. Defaults to 100 commits.
+    depth: # optional
+    # The chunk size used to split up large files during upload, in bytes
+    upload-chunk-size: # optional
