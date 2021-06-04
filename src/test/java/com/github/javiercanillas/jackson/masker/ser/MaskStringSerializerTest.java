@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.std.StringSerializer;
-import com.github.javiercanillas.jackson.masker.ser.MaskedStringSerializer;
+import com.github.javiercanillas.jackson.masker.ser.MaskStringSerializer;
 import com.github.javiercanillas.jackson.masker.view.Masked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -109,11 +109,11 @@ class MaskStringTest {
 
     @Test
     void acceptJsonFormatVisitor() throws NoSuchFieldException, IllegalAccessException, JsonMappingException {
-        final Field defaultSerializerField = MaskedStringSerializer.class.getDeclaredField("defaultSerializer");
+        final Field defaultSerializerField = MaskStringSerializer.class.getDeclaredField("defaultSerializer");
         defaultSerializerField.setAccessible(true);
         StringSerializer inner = mock(StringSerializer.class);
 
-        MaskedStringSerializer serializer = new MaskedStringSerializer(0, '*');
+        MaskStringSerializer serializer = new MaskStringSerializer(0, '*');
         defaultSerializerField.set(serializer, inner);
 
         serializer.acceptJsonFormatVisitor(null, null);
@@ -123,11 +123,11 @@ class MaskStringTest {
 
     @Test
     void getSchema() throws NoSuchFieldException, IllegalAccessException {
-        final Field defaultSerializerField = MaskedStringSerializer.class.getDeclaredField("defaultSerializer");
+        final Field defaultSerializerField = MaskStringSerializer.class.getDeclaredField("defaultSerializer");
         defaultSerializerField.setAccessible(true);
         StringSerializer inner = mock(StringSerializer.class);
 
-        MaskedStringSerializer serializer = new MaskedStringSerializer(0, '*');
+        MaskStringSerializer serializer = new MaskStringSerializer(0, '*');
         defaultSerializerField.set(serializer, inner);
 
         serializer.getSchema(null, null);
@@ -137,11 +137,11 @@ class MaskStringTest {
 
     @Test
     void isEmpty() throws NoSuchFieldException, IllegalAccessException {
-        final Field defaultSerializerField = MaskedStringSerializer.class.getDeclaredField("defaultSerializer");
+        final Field defaultSerializerField = MaskStringSerializer.class.getDeclaredField("defaultSerializer");
         defaultSerializerField.setAccessible(true);
         StringSerializer inner = mock(StringSerializer.class);
 
-        MaskedStringSerializer serializer = new MaskedStringSerializer(0, '*');
+        MaskStringSerializer serializer = new MaskStringSerializer(0, '*');
         defaultSerializerField.set(serializer, inner);
 
         serializer.isEmpty(null, null);
@@ -151,11 +151,11 @@ class MaskStringTest {
 
     @Test
     void serialize() throws NoSuchFieldException, IllegalAccessException, IOException {
-        final Field defaultSerializerField = MaskedStringSerializer.class.getDeclaredField("defaultSerializer");
+        final Field defaultSerializerField = MaskStringSerializer.class.getDeclaredField("defaultSerializer");
         defaultSerializerField.setAccessible(true);
         StringSerializer inner = mock(StringSerializer.class);
 
-        MaskedStringSerializer serializer = new MaskedStringSerializer(0, '*');
+        MaskStringSerializer serializer = new MaskStringSerializer(0, '*');
         defaultSerializerField.set(serializer, inner);
 
         String value = "a";
@@ -168,11 +168,11 @@ class MaskStringTest {
 
     @Test
     void serializeWithType() throws NoSuchFieldException, IllegalAccessException, IOException {
-        final Field defaultSerializerField = MaskedStringSerializer.class.getDeclaredField("defaultSerializer");
+        final Field defaultSerializerField = MaskStringSerializer.class.getDeclaredField("defaultSerializer");
         defaultSerializerField.setAccessible(true);
         StringSerializer inner = mock(StringSerializer.class);
 
-        MaskedStringSerializer serializer = new MaskedStringSerializer(0, '*');
+        MaskStringSerializer serializer = new MaskStringSerializer(0, '*');
         defaultSerializerField.set(serializer, inner);
 
         String value = "a";

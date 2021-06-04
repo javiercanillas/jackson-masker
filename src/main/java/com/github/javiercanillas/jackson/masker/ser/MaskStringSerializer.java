@@ -24,7 +24,7 @@ import java.util.Optional;
  * Custom Masking Serialization for fields annotated with {@link MaskString}. It uses internally the implementation of
  * {@link StringSerializer}
  */
-public class MaskedStringSerializer extends StdScalarSerializer<String> implements ContextualSerializer {
+public class MaskStringSerializer extends StdScalarSerializer<String> implements ContextualSerializer {
 
     private static final long serialVersionUID = -5753691330908523181L;
 
@@ -32,11 +32,11 @@ public class MaskedStringSerializer extends StdScalarSerializer<String> implemen
     private final int keepLastCharacters;
     private final char maskCharacter;
 
-    public MaskedStringSerializer() {
+    public MaskStringSerializer() {
         this(MaskString.DEFAULTS_KEEP_LAST_CHARACTERS, MaskString.DEFAULTS_MASK_CHARACTER);
     }
 
-    public MaskedStringSerializer(final int keepLastCharacters, final char maskCharacter) {
+    public MaskStringSerializer(final int keepLastCharacters, final char maskCharacter) {
         super(String.class, false);
         defaultSerializer = new StringSerializer();
         this.keepLastCharacters = keepLastCharacters;
@@ -81,7 +81,7 @@ public class MaskedStringSerializer extends StdScalarSerializer<String> implemen
     @Override
     public JsonSerializer<?> createContextual(final SerializerProvider prov, final BeanProperty property) {
         var annotation = Optional.ofNullable(property).map(prop -> prop.getAnnotation(MaskString.class));
-        return new MaskedStringSerializer(Math.max(0,
+        return new MaskStringSerializer(Math.max(0,
                 annotation.map(MaskString::keepLastCharacters).orElse(MaskString.DEFAULTS_KEEP_LAST_CHARACTERS)),
                 annotation.map(MaskString::maskCharacter).orElse(MaskString.DEFAULTS_MASK_CHARACTER));
     }
