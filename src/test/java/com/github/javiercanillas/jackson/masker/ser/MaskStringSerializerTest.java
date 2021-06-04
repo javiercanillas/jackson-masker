@@ -21,7 +21,7 @@ import java.lang.reflect.Type;
 
 import static org.mockito.Mockito.*;
 
-class MaskStringTest {
+class MaskStringSerializerTest {
 
     public static class TestObject {
 
