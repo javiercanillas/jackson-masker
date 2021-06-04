@@ -1,10 +1,10 @@
-package com.github.javiercanillas.pii;
+package com.github.javiercanillas.jackson.masker;
 
 import java.util.stream.Collector;
 import java.util.stream.IntStream;
 
 /**
- * Mask utilities methods used for PII masking.
+ * Mask utilities methods used for masking.
  */
 public final class MaskUtils {
 
