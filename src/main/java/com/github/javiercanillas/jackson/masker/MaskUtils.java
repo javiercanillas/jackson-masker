@@ -8,7 +8,6 @@ import java.util.stream.IntStream;
  */
 public final class MaskUtils {
 
-    public static final int DEFAULTS_KEEP_LAST_CHARACTERS = 3;
     public static final char DEFAULT_MASK_CHARACTER = '*';
 
     private MaskUtils() { }
