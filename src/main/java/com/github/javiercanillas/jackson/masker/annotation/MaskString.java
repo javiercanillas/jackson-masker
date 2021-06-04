@@ -12,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to be applied over String fields to be masked using the view {@link Masked} when using
+ * Annotation to be applied over {@link String} fields to be masked using the view {@link Masked} when using
  * {@link com.fasterxml.jackson.databind.ObjectMapper#writerWithView}. If no view is passed or it's null, data will not
  * be masked (backward compatibility).
  */
