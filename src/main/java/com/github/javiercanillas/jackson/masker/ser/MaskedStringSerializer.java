@@ -24,7 +24,7 @@ import java.util.Optional;
  * Custom Masking Serialization for fields annotated with {@link MaskString}. It uses internally the implementation of
  * {@link StringSerializer}
  */
-public class MaskedStringSerializer extends StdScalarSerializer<Object> implements ContextualSerializer {
+public class MaskedStringSerializer extends StdScalarSerializer<String> implements ContextualSerializer {
 
     private static final long serialVersionUID = -5753691330908523181L;
 
@@ -44,12 +44,12 @@ public class MaskedStringSerializer extends StdScalarSerializer<Object> implemen
     }
 
     @Override
-    public boolean isEmpty(final SerializerProvider prov, final Object value) {
+    public boolean isEmpty(final SerializerProvider prov, final String value) {
         return defaultSerializer.isEmpty(prov, value);
     }
 
     @Override
-    public void serialize(final Object value, final JsonGenerator gen, final SerializerProvider provider) throws IOException {
+    public void serialize(final String value, final JsonGenerator gen, final SerializerProvider provider) throws IOException {
         if (isEnabled(provider)) {
             gen.writeString(MaskUtils.mask((String) value, this.keepLastCharacters, this.maskCharacter));
         } else {
@@ -58,7 +58,7 @@ public class MaskedStringSerializer extends StdScalarSerializer<Object> implemen
     }
 
     @Override
-    public void serializeWithType(final Object value, final JsonGenerator gen, final SerializerProvider provider,
+    public void serializeWithType(final String value, final JsonGenerator gen, final SerializerProvider provider,
                                   final TypeSerializer typeSer) throws IOException {
         if (isEnabled(provider)) {
             gen.writeString(MaskUtils.mask((String) value, this.keepLastCharacters, this.maskCharacter));
