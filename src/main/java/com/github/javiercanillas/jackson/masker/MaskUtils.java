@@ -1,16 +1,61 @@
 package com.github.javiercanillas.jackson.masker;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
  * Mask utilities methods used for masking.
  */
 public final class MaskUtils {
-
+    public static final int DEFAULTS_KEEP_LAST_CHARACTERS = 0;
     public static final char DEFAULT_MASK_CHARACTER = '*';
 
     private MaskUtils() { }
+
+    /**
+     * Mask the argument string array keeping the last digits defined in {@param keepLastCharacters} and replacing the others
+     * with {@param maskCharacter}.
+     * <br/>
+     * For example:  <code>mask("hello", 2, '*')</code> will reproduce <code>***lo</code>
+     * @param collection collection of strings to be masked.
+     * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
+     * {@param keepLastCharacters} it will not be masked.
+     * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
+     */
+    public static Collection<String> mask(final Collection<String> collection, final int keepLastCharacters,
+                                final char maskCharacter, final Collector<String, ?, Collection<String>> collector) {
+        if (collection == null) {
+            return null;
+        }
+
+        return collection.stream()
+                .map(value -> mask(value, keepLastCharacters, maskCharacter))
+                .collect(collector);
+    }
+
+    /**
+     * Mask the argument string array keeping the last digits defined in {@param keepLastCharacters} and replacing the others
+     * with {@param maskCharacter}.
+     * <br/>
+     * For example:  <code>mask("hello", 2, '*')</code> will reproduce <code>***lo</code>
+     * @param array array of strings to be masked.
+     * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
+     * {@param keepLastCharacters} it will not be masked.
+     * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
+     */
+    public static String[] mask(final String[] array, final int keepLastCharacters,
+                                final char maskCharacter) {
+        if (array == null) {
+            return null;
+        }
+
+        return Arrays.stream(array)
+                .map(value -> mask(value, keepLastCharacters, maskCharacter))
+                .collect(Collectors.toList()).toArray(new String[array.length]);
+    }
 
     /**
      * Mask the argument string value keeping the last digits defined in {@param keepLastCharacters} and replacing the others

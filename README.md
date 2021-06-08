@@ -1,5 +1,5 @@
 # jackson-masker
-Sensible information (such us emails, IDs or phone numbers) is a serious problem 
+Sensitive information (such us emails, IDs or phone numbers) is a serious problem 
 to deal with. If you have objects that are logged or write into files where 
 masking is required, and you are already using Jackson ObjectMapper solution in 
 your application, this library might be of some help.
@@ -16,7 +16,7 @@ class EntityA {
     ...
 }
 ```
-Well, with this class you can annotate this attribute as sensible data like this:
+Well, with this class you can annotate this attribute as sensitive data like this:
 
 ```java
 import com.github.javiercanillas.jackson.masker.annotation.MaskString;

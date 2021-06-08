@@ -17,11 +17,11 @@ import java.lang.annotation.Target;
  * be masked (backward compatibility).
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD})
 @JacksonAnnotationsInside
 @JsonSerialize(using = MaskStringSerializer.class)
 public @interface MaskString {
-    int DEFAULTS_KEEP_LAST_CHARACTERS = 0;
+    int DEFAULTS_KEEP_LAST_CHARACTERS = MaskUtils.DEFAULTS_KEEP_LAST_CHARACTERS;
     char DEFAULTS_MASK_CHARACTER = MaskUtils.DEFAULT_MASK_CHARACTER;
 
     /**
