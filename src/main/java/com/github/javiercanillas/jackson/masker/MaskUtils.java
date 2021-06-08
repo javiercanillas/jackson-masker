@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 /**
  * Mask utilities methods used for masking.
  */
+@SuppressWarnings("java:S1168")
 public final class MaskUtils {
     public static final int DEFAULTS_KEEP_LAST_CHARACTERS = 0;
     public static final char DEFAULT_MASK_CHARACTER = '*';
