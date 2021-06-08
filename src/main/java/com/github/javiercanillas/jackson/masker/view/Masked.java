@@ -1,5 +1,6 @@
 package com.github.javiercanillas.jackson.masker.view;
 
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.github.javiercanillas.jackson.masker.annotation.MaskString;
 
 /**
@@ -8,5 +9,7 @@ import com.github.javiercanillas.jackson.masker.annotation.MaskString;
  */
 @SuppressWarnings({"java:S2094"})
 public class Masked {
-
+    public static boolean isEnabled(final SerializerProvider provider) {
+        return (null != provider.getActiveView() && Masked.class.isAssignableFrom(provider.getActiveView()));
+    }
 }
