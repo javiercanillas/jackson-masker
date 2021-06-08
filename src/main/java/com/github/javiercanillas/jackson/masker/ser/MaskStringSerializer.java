@@ -50,7 +50,7 @@ public class MaskStringSerializer extends StdScalarSerializer<String> implements
 
     @Override
     public void serialize(final String value, final JsonGenerator gen, final SerializerProvider provider) throws IOException {
-        if (isEnabled(provider)) {
+        if (Masked.isEnabled(provider)) {
             gen.writeString(MaskUtils.mask(value, this.keepLastCharacters, this.maskCharacter));
         } else {
             defaultSerializer.serialize(value, gen, provider);
@@ -60,7 +60,7 @@ public class MaskStringSerializer extends StdScalarSerializer<String> implements
     @Override
     public void serializeWithType(final String value, final JsonGenerator gen, final SerializerProvider provider,
                                   final TypeSerializer typeSer) throws IOException {
-        if (isEnabled(provider)) {
+        if (Masked.isEnabled(provider)) {
             gen.writeString(MaskUtils.mask(value, this.keepLastCharacters, this.maskCharacter));
         } else {
             defaultSerializer.serializeWithType(value, gen, provider, typeSer);
@@ -84,9 +84,5 @@ public class MaskStringSerializer extends StdScalarSerializer<String> implements
         return new MaskStringSerializer(Math.max(0,
                 annotation.map(MaskString::keepLastCharacters).orElse(MaskString.DEFAULTS_KEEP_LAST_CHARACTERS)),
                 annotation.map(MaskString::maskCharacter).orElse(MaskString.DEFAULTS_MASK_CHARACTER));
-    }
-
-    private boolean isEnabled(final SerializerProvider provider) {
-        return (null != provider.getActiveView() && Masked.class.isAssignableFrom(provider.getActiveView()));
     }
 }
