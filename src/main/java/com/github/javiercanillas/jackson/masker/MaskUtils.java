@@ -1,7 +1,7 @@
 package com.github.javiercanillas.jackson.masker;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -21,20 +21,20 @@ public final class MaskUtils {
      * with {@param maskCharacter}.
      * <br/>
      * For example:  <code>mask("hello", 2, '*')</code> will reproduce <code>***lo</code>
-     * @param collection collection of strings to be masked.
+     * @param values values of strings to be masked.
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
      * {@param keepLastCharacters} it will not be masked.
      * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
      */
-    public static Collection<String> mask(final Collection<String> collection, final int keepLastCharacters,
-                                final char maskCharacter, final Collector<String, ?, Collection<String>> collector) {
-        if (collection == null) {
+    public static List<String> mask(final List<String> values, final int keepLastCharacters,
+                                    final char maskCharacter) {
+        if (values == null) {
             return null;
         }
 
-        return collection.stream()
+        return values.stream()
                 .map(value -> mask(value, keepLastCharacters, maskCharacter))
-                .collect(collector);
+                .collect(Collectors.toList());
     }
 
     /**

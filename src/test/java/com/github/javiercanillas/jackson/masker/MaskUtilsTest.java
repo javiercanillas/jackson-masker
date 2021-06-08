@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -47,6 +48,29 @@ class MaskUtilsTest {
         } else {
             assertEquals(result.length, masked.length);
             IntStream.range(0, result.length).forEach(i -> assertEquals(result[i], masked[i]));
+        }
+
+    }
+
+    private static Stream<Arguments> stringListArguments() {
+        return Stream.of(
+                Arguments.of(null, 0, '*', null),
+                Arguments.of(List.of(), 0, '*', List.of()),
+                Arguments.of(List.of("a"), 1, '*', List.of("a")),
+//                Arguments.of(List.of("a", null), 1, '*', List.of("a", null)),
+                Arguments.of(List.of("abc", "a"), 1, '*', List.of("**c", "a"))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("stringListArguments")
+    void mask(List<String> value, int keepLast, char maskChar, List<String> result) {
+        final List<String> masked = MaskUtils.mask(value, keepLast, maskChar);
+        if (value == null) {
+            assertNull(masked);
+        } else {
+            assertEquals(result.size(), masked.size());
+            IntStream.range(0, result.size()).forEach(i -> assertEquals(result.get(i), masked.get(i)));
         }
 
     }
