@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 
-public class ObjectWithStringFieldTest {
+class ObjectWithStringFieldTest {
 
     @Data
     public static class TestObject {
