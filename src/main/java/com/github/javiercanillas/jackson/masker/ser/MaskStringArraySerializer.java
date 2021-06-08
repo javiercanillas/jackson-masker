@@ -7,15 +7,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.impl.StringArraySerializer;
-import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import com.github.javiercanillas.jackson.masker.MaskUtils;
-import com.github.javiercanillas.jackson.masker.annotation.MaskString;
 import com.github.javiercanillas.jackson.masker.annotation.MaskStringArray;
 import com.github.javiercanillas.jackson.masker.view.Masked;
 
 import java.io.IOException;
 import java.util.Optional;
 
+@SuppressWarnings("java:S110")
 public class MaskStringArraySerializer extends StringArraySerializer {
 
     private final int keepLastCharacters;

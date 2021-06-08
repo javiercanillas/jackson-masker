@@ -16,8 +16,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-
-public class ObjectWithStringArrayFieldTest {
+class ObjectWithStringArrayFieldTest {
 
     @Data
     public static class TestObject {
