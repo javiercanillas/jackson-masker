@@ -12,12 +12,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to be applied over {@link String} fields to be masked using the view {@link Masked} when using
+ * Annotation to be applied over fields or methods using {@link String}, array of {@link String}s, {@link java.util.Set},
+ * {@link java.util.List} or {@link java.util.Map} fields to have its values masked using the view {@link Masked} when using
  * {@link com.fasterxml.jackson.databind.ObjectMapper#writerWithView}. If no view is passed or it's null, data will not
  * be masked (backward compatibility).
+ * <br/><br/>
+ * <b>Note:</b> On {@link java.util.Map} only values will be mask and not keys. Also, on {@link java.util.Set} can have impact
+ * on collection size, since when masking duplication might appear.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @JacksonAnnotationsInside
 @JsonSerialize(using = MaskStringSerializer.class)
 public @interface MaskString {

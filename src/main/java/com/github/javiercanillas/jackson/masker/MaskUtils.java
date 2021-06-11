@@ -2,6 +2,7 @@ package com.github.javiercanillas.jackson.masker;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -76,6 +77,26 @@ public final class MaskUtils {
 
         return mask(Arrays.stream(array), keepLastCharacters, maskCharacter)
                 .collect(Collectors.toList()).toArray(new String[array.length]);
+    }
+
+    /**
+     * Mask the argument string array keeping the last digits defined in {@param keepLastCharacters} and replacing the others
+     * with {@param maskCharacter}.
+     * <br/>
+     * For example:  <code>mask(new String[] { "hello" }, 2, '*')</code> will reproduce <code>***lo</code>
+     * @param map array of strings to be masked.
+     * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
+     * {@param keepLastCharacters} it will not be masked.
+     * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
+     */
+    @SuppressWarnings("java:S1452")
+    public static Map<?, String> maskMapValues(Map<?, String> map, int keepLastCharacters, char maskCharacter) {
+        if (map == null) {
+            return null;
+        }
+
+        return map.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> mask(e.getValue(), keepLastCharacters, maskCharacter)));
     }
 
     private static Stream<String> mask(final Stream<String> stream, final int keepLastCharacters,

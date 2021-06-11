@@ -5,7 +5,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -58,7 +60,6 @@ class MaskUtilsTest {
                 Arguments.of(null, 0, '*', null),
                 Arguments.of(List.of(), 0, '*', List.of()),
                 Arguments.of(List.of("a"), 1, '*', List.of("a")),
-//                Arguments.of(List.of("a", null), 1, '*', List.of("a", null)),
                 Arguments.of(List.of("abc", "a"), 1, '*', List.of("**c", "a"))
         );
     }
@@ -81,7 +82,6 @@ class MaskUtilsTest {
                 Arguments.of(null, 0, '*', null),
                 Arguments.of(Set.of(), 0, '*', Set.of()),
                 Arguments.of(Set.of("a"), 1, '*', Set.of("a")),
-//                Arguments.of(Set.of("a", null), 1, '*', Set.of("a", null)),
                 Arguments.of(Set.of("abc", "a"), 1, '*', Set.of("**c", "a"))
         );
     }
@@ -97,6 +97,30 @@ class MaskUtilsTest {
             result.forEach(s -> assertTrue(masked.contains(s), String.format("Didn't find %s on masked result", s)));
         }
 
+    }
+
+    private static Stream<Arguments> stringValueMapArguments() {
+        return Stream.of(
+                Arguments.of(null, 0, '*', null),
+                Arguments.of(Map.of(), 0, '*', Map.of()),
+                Arguments.of(Map.of("a", "b"), 1, '*', Map.of("a", "b")),
+                Arguments.of(Map.of(1, "b"), 1, '*', Map.of(1, "b")),
+                Arguments.of(Map.of("a", "bcd"), 1, '*', Map.of("a", "**d")),
+                Arguments.of(Map.of(1, "bcd", 3L, "fgh"), 1, '*', Map.of(1, "**d", 3l, "**h")),
+                Arguments.of(Map.of(BigDecimal.ONE, "bcd", 3L, "fgh"), 1, '*', Map.of(BigDecimal.ONE, "**d", 3L, "**h"))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("stringValueMapArguments")
+    void mask(Map<?, String> value, int keepLast, char maskChar, Map<?, String> result) {
+        final Map<?, String> masked = MaskUtils.maskMapValues(value, keepLast, maskChar);
+        if (value == null) {
+            assertNull(masked);
+        } else {
+            assertEquals(result.size(), masked.size());
+            result.forEach( (key,val) -> assertEquals(val, masked.get(key)));
+        }
     }
 
     @Test

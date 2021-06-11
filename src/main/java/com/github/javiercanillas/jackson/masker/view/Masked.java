@@ -14,6 +14,11 @@ public class Masked {
         // to avoid instance creation
     }
 
+    /**
+     * Check on the given {@link SerializerProvider} for the {@link Masked} view.
+     * @param provider
+     * @return true if {@link Masked} view is found active, otherwise false.
+     */
     public static boolean isEnabled(final SerializerProvider provider) {
         return (null != provider.getActiveView() && Masked.class.isAssignableFrom(provider.getActiveView()));
     }
