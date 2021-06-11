@@ -8,6 +8,15 @@ your application, this library might be of some help.
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=javiercanillas_jackson-masker&metric=alert_status)](https://sonarcloud.io/dashboard?id=javiercanillas_jackson-masker)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=javiercanillas_jackson-masker&metric=coverage)](https://sonarcloud.io/dashboard?id=javiercanillas_jackson-masker)
 ---
+## Types supported
+- String
+- List<String>
+- Set<String>
+- String[]
+- Map<?, String>
+
+**Note:** If you consider a type might be missing or you like it on this list, feel free to contact me.
+
 ## How to use
 Lets suppose you have an entity that has an email as part of its attributes:
 ```java
@@ -62,6 +71,8 @@ The produced json in this case would be:
   "id": "--cd1234"
 }
 ```
+
+More examples on test and [wiki](https://github.com/javiercanillas/jackson-masker/wiki)
 
 ## How to install
 
