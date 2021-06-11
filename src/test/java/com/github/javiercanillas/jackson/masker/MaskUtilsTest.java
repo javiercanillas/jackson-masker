@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -71,6 +72,29 @@ class MaskUtilsTest {
         } else {
             assertEquals(result.size(), masked.size());
             IntStream.range(0, result.size()).forEach(i -> assertEquals(result.get(i), masked.get(i)));
+        }
+
+    }
+
+    private static Stream<Arguments> stringSetArguments() {
+        return Stream.of(
+                Arguments.of(null, 0, '*', null),
+                Arguments.of(Set.of(), 0, '*', Set.of()),
+                Arguments.of(Set.of("a"), 1, '*', Set.of("a")),
+//                Arguments.of(Set.of("a", null), 1, '*', Set.of("a", null)),
+                Arguments.of(Set.of("abc", "a"), 1, '*', Set.of("**c", "a"))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("stringSetArguments")
+    void mask(Set<String> value, int keepLast, char maskChar, Set<String> result) {
+        final Set<String> masked = MaskUtils.mask(value, keepLast, maskChar);
+        if (value == null) {
+            assertNull(masked);
+        } else {
+            assertEquals(result.size(), masked.size());
+            result.forEach(s -> assertTrue(masked.contains(s), String.format("Didn't find %s on masked result", s)));
         }
 
     }
