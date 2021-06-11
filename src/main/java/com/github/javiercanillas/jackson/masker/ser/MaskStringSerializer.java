@@ -24,6 +24,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
+/**
+ * Serializer wrapper to be able to handle masking. Internally it will use all known serializers from Jackson.
+ */
 public class MaskStringSerializer extends JsonSerializer<Object> implements ContextualSerializer {
 
     @Getter
