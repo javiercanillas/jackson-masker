@@ -10,8 +10,8 @@ your application, this library might be of some help.
 ---
 ## Types supported
 - String
-- List<String>
-- Set<String>
+- List\<String\>
+- Set\<String\>
 - String[]
 - Map<?, String>
 
