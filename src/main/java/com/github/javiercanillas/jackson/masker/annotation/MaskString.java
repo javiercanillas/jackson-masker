@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
  * be masked (backward compatibility).
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD })
+@Target({ ElementType.FIELD, ElementType.METHOD })
 @JacksonAnnotationsInside
 @JsonSerialize(using = MaskStringSerializer.class)
 public @interface MaskString {

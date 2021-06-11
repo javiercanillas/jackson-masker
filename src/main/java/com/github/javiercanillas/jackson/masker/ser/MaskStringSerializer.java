@@ -19,6 +19,7 @@ import lombok.Getter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -126,6 +127,8 @@ public class MaskStringSerializer extends JsonSerializer<Object> implements Cont
                 newValue = MaskUtils.mask((List<String>) value, this.keepLastCharacters, this.maskCharacter);
             } else if (value instanceof Set) {
                 newValue = MaskUtils.mask((Set<String>) value, this.keepLastCharacters, this.maskCharacter);
+            } else if (value instanceof Map) {
+                newValue = MaskUtils.maskMapValues((Map<?, String>) value, this.keepLastCharacters, this.maskCharacter);
             } else {
                 // ups!! value type is not supported :(
                 newValue = value;
