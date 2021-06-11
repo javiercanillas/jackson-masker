@@ -89,6 +89,7 @@ public final class MaskUtils {
      * {@param keepLastCharacters} it will not be masked.
      * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
      */
+    @SuppressWarnings("java:S1452")
     public static Map<?, String> maskMapValues(Map<?, String> map, int keepLastCharacters, char maskCharacter) {
         if (map == null) {
             return null;
