@@ -47,13 +47,13 @@ class ObjectWithStringMapFieldTest {
         return Stream.of(
                 Arguments.of(buildTestObject(Map.of(1, "aabbccdd", 2, "eeffgghh")),
                         "{\"stringValues\":{\"1\":\"aabbccdd\",\"2\":\"eeffgghh\"},\"sensitiveStrings\":{\"1\":\"********\",\"2\":\"********\"},\"sensitiveStringKeepLastCharacters\":{\"1\":\"**bbccdd\",\"2\":\"**ffgghh\"},\"sensitiveStringKeepLastCharactersWithCustomMask\":{\"1\":\"##bbccdd\",\"2\":\"##ffgghh\"}}",
-                        ""),
+                        "{\"stringValues\":{\"1\":\"aabbccdd\",\"2\":\"eeffgghh\"},\"sensitiveStrings\":{\"1\":\"aabbccdd\",\"2\":\"eeffgghh\"},\"sensitiveStringKeepLastCharacters\":{\"1\":\"aabbccdd\",\"2\":\"eeffgghh\"},\"sensitiveStringKeepLastCharactersWithCustomMask\":{\"1\":\"aabbccdd\",\"2\":\"eeffgghh\"}}"),
                 Arguments.of(buildTestObject(Map.of(1, "aabb", 2, "ccdd")),
                         "{\"stringValues\":{\"1\":\"aabb\",\"2\":\"ccdd\"},\"sensitiveStrings\":{\"1\":\"****\",\"2\":\"****\"},\"sensitiveStringKeepLastCharacters\":{\"1\":\"aabb\",\"2\":\"ccdd\"},\"sensitiveStringKeepLastCharactersWithCustomMask\":{\"1\":\"aabb\",\"2\":\"ccdd\"}}",
-                        "{\"stringValues\":{\"1\":\"aabbccdd\",\"2\":\"eeffgghh\"},\"sensitiveStrings\":{\"1\":\"aabbccdd\",\"2\":\"eeffgghh\"},\"sensitiveStringKeepLastCharacters\":{\"1\":\"aabbccdd\",\"2\":\"eeffgghh\"},\"sensitiveStringKeepLastCharactersWithCustomMask\":{\"1\":\"aabbccdd\",\"2\":\"eeffgghh\"}}"),
+                        "{\"stringValues\":{\"1\":\"aabb\",\"2\":\"ccdd\"},\"sensitiveStrings\":{\"1\":\"aabb\",\"2\":\"ccdd\"},\"sensitiveStringKeepLastCharacters\":{\"1\":\"aabb\",\"2\":\"ccdd\"},\"sensitiveStringKeepLastCharactersWithCustomMask\":{\"1\":\"aabb\",\"2\":\"ccdd\"}}"),
                 Arguments.of(buildTestObject(),
                         "{\"stringValues\":null,\"sensitiveStrings\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null}",
-                        "{\"stringValues\":{\"1\":\"aabb\",\"2\":\"ccdd\"},\"sensitiveStrings\":{\"1\":\"aabb\",\"2\":\"ccdd\"},\"sensitiveStringKeepLastCharacters\":{\"1\":\"aabb\",\"2\":\"ccdd\"},\"sensitiveStringKeepLastCharactersWithCustomMask\":{\"1\":\"aabb\",\"2\":\"ccdd\"}}")
+                        "{\"stringValues\":null,\"sensitiveStrings\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null}")
         );
     }
 
@@ -62,7 +62,12 @@ class ObjectWithStringMapFieldTest {
     void map(TestObject obj, String maskedStringOutput, String normalStringOutput) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        Assertions.assertEquals(maskedStringOutput, mapper.writerWithView(Masked.class).writeValueAsString(obj));
-        Assertions.assertEquals(normalStringOutput, mapper.writer().writeValueAsString(obj));
+        var maskedObject = mapper.readValue(mapper.writerWithView(Masked.class).writeValueAsString(obj), TestObject.class);
+        var expectedMaskObject = mapper.readValue(maskedStringOutput, TestObject.class);
+        var unmaskedObject = mapper.readValue(mapper.writer().writeValueAsString(obj), TestObject.class);
+        var expectedNormalObject = mapper.readValue(normalStringOutput, TestObject.class);
+
+        Assertions.assertEquals(expectedMaskObject, maskedObject);
+        Assertions.assertEquals(expectedNormalObject, unmaskedObject);
     }
 }
