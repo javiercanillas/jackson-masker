@@ -20,14 +20,16 @@ public final class MaskUtils {
     private MaskUtils() { }
 
     /**
-     * Mask the argument string set keeping the last digits defined in {@param keepLastCharacters} and replacing the others
-     * with {@param maskCharacter}.
-     * <br/>
+     * Mask the argument string set keeping the last digits defined in {@code keepLastCharacters} and replacing the others
+     * with {@code maskCharacter}.
+     * <p>
      * For example:  <code>mask(Set.of("hello"), 2, '*')</code> will reproduce <code>***lo</code>
      * @param values set of values of string to be masked.
+     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
-     * {@param keepLastCharacters} it will not be masked.
-     * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
+     * {@code keepLastCharacters} it will not be masked.
+     * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
     public static Set<String> mask(final Set<String> values, final int keepLastCharacters,
                                    final char maskCharacter) {
@@ -40,14 +42,16 @@ public final class MaskUtils {
     }
 
     /**
-     * Mask the argument string list keeping the last digits defined in {@param keepLastCharacters} and replacing the others
-     * with {@param maskCharacter}.
-     * <br/>
+     * Mask the argument string list keeping the last digits defined in {@code keepLastCharacters} and replacing the others
+     * with {@code maskCharacter}.
+     * <p>
      * For example:  <code>mask(List.of("hello"), 2, '*')</code> will reproduce <code>***lo</code>
      * @param values values of strings to be masked.
+     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
-     * {@param keepLastCharacters} it will not be masked.
-     * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
+     * {@code keepLastCharacters} it will not be masked.
+     * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
     public static List<String> mask(final List<String> values, final int keepLastCharacters,
                                     final char maskCharacter) {
@@ -60,14 +64,16 @@ public final class MaskUtils {
     }
 
     /**
-     * Mask the argument string array keeping the last digits defined in {@param keepLastCharacters} and replacing the others
-     * with {@param maskCharacter}.
-     * <br/>
+     * Mask the argument string array keeping the last digits defined in {@code keepLastCharacters} and replacing the others
+     * with {@code maskCharacter}.
+     * <p>
      * For example:  <code>mask(new String[] { "hello" }, 2, '*')</code> will reproduce <code>***lo</code>
      * @param array array of strings to be masked.
+     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
-     * {@param keepLastCharacters} it will not be masked.
-     * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
+     * {@code keepLastCharacters} it will not be masked.
+     * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
     public static String[] mask(final String[] array, final int keepLastCharacters,
                                 final char maskCharacter) {
@@ -80,14 +86,16 @@ public final class MaskUtils {
     }
 
     /**
-     * Mask the argument string array keeping the last digits defined in {@param keepLastCharacters} and replacing the others
-     * with {@param maskCharacter}.
-     * <br/>
+     * Mask the argument string array keeping the last digits defined in {@code keepLastCharacters} and replacing the others
+     * with {@code maskCharacter}.
+     * <p>
      * For example:  <code>mask(new String[] { "hello" }, 2, '*')</code> will reproduce <code>***lo</code>
      * @param map array of strings to be masked.
+     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
-     * {@param keepLastCharacters} it will not be masked.
-     * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
+     * {@code keepLastCharacters} it will not be masked.
+     * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
     @SuppressWarnings("java:S1452")
     public static Map<?, String> maskMapValues(Map<?, String> map, int keepLastCharacters, char maskCharacter) {
@@ -105,14 +113,16 @@ public final class MaskUtils {
     }
 
     /**
-     * Mask the argument string value keeping the last digits defined in {@param keepLastCharacters} and replacing the others
-     * with {@param maskCharacter}.
-     * <br/>
+     * Mask the argument string value keeping the last digits defined in {@code keepLastCharacters} and replacing the others
+     * with {@code maskCharacter}.
+     * <p>
      * For example:  <code>mask("hello", 2, '*')</code> will reproduce <code>***lo</code>
      * @param value string value to be masked.
+     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
-     * {@param keepLastCharacters} it will not be masked.
-     * @throws IllegalArgumentException if {@param keepLastCharacters} is less than 0.
+     * {@code keepLastCharacters} it will not be masked.
+     * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
     public static String mask(final String value, final int keepLastCharacters,
                               final char maskCharacter) {
