@@ -86,10 +86,6 @@ class MaskStringSerializerTest {
     }
 
     @Test
-    void serialize() {
-    }
-
-    @Test
     void serializeWithType() throws IOException {
         var value = mock(Object.class);
         var gen = mock(JsonGenerator.class);
@@ -165,10 +161,5 @@ class MaskStringSerializerTest {
         this.maskStringSerializerArgs.acceptJsonFormatVisitor(visitor, javaType);
         verify(innerSerializer, times(1)).acceptJsonFormatVisitor(visitor, javaType);
         verifyNoMoreInteractions(innerSerializer);
-    }
-
-    @Test
-    void createContextual() throws JsonMappingException {
-       // this is tested using examples
     }
 }

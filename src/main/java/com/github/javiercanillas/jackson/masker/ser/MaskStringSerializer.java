@@ -94,7 +94,7 @@ public class MaskStringSerializer extends JsonSerializer<Object> implements Cont
 
     @Override
     public JsonSerializer<?> getDelegatee() {
-        return wrappedResultOrElseNull(() -> this.nonMaskerSerializer.getDelegatee());
+        return wrappedResultOrElseNull(this.nonMaskerSerializer::getDelegatee);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class MaskStringSerializer extends JsonSerializer<Object> implements Cont
 
     private JsonSerializer<Object> wrappedResultOrElseNull(final Supplier<JsonSerializer<?>> supplier) {
         return Optional.ofNullable(supplier.get())
-                .map(ser -> (JsonSerializer<Object>) ser)
+                .map(JsonSerializer.class::cast)
                 .map(ser -> new MaskStringSerializer(ser, this.keepLastCharacters, this.maskCharacter))
                 .orElse(null);
     }
