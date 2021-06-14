@@ -16,7 +16,7 @@ public class Masked {
 
     /**
      * Check on the given {@link SerializerProvider} for the {@link Masked} view.
-     * @param provider
+     * @param provider {@link SerializerProvider} instance
      * @return true if {@link Masked} view is found active, otherwise false.
      */
     public static boolean isEnabled(final SerializerProvider provider) {
