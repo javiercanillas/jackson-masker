@@ -4,13 +4,13 @@
 
     <groupId>com.github.javiercanillas</groupId>
     <artifactId>jackson-masker</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>0.9.1</version>
 
     <scm>
         <url>https://github.com/javiercanillas/jackson-masker</url>
         <connection>scm:git:git://github.com/javiercanillas/jackson-masker.git</connection>
         <developerConnection>scm:git:git@github.com:javiercanillas/jackson-masker.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>jackson-masker-0.9.1</tag>
     </scm>
 
     <properties>
