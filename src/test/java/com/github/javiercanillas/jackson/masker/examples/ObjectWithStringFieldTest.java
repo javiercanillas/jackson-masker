@@ -23,12 +23,12 @@ class ObjectWithStringFieldTest {
         private String sensitiveString;
         @MaskString(keepLastCharacters = 6)
         private String sensitiveStringKeepLastCharacters;
-        @MaskString(keepFirstCharacters = 1)
-        private String sensitiveStringKeepFirstCharacters;
+        @MaskString(keepInitialCharacters = 1)
+        private String sensitiveStringKeepInitialCharacters;
         @MaskString(keepLastCharacters = 6, maskCharacter = '#')
         private String sensitiveStringKeepLastCharactersWithCustomMask;
-        @MaskString(keepFirstCharacters = 1, keepLastCharacters = 6, maskCharacter = '#')
-        private String sensitiveStringKeepFirstKeepLastCharactersWithCustomMask;
+        @MaskString(keepInitialCharacters = 1, keepLastCharacters = 6, maskCharacter = '#')
+        private String sensitiveStringKeepInitialKeepLastCharactersWithCustomMask;
     }
 
     private static TestObject buildTestObject(String stringValue) {
@@ -36,9 +36,9 @@ class ObjectWithStringFieldTest {
         obj = new TestObject();
         obj.setSensitiveString(stringValue);
         obj.setSensitiveStringKeepLastCharacters(stringValue);
-        obj.setSensitiveStringKeepFirstCharacters(stringValue);
+        obj.setSensitiveStringKeepInitialCharacters(stringValue);
         obj.setSensitiveStringKeepLastCharactersWithCustomMask(stringValue);
-        obj.setSensitiveStringKeepFirstKeepLastCharactersWithCustomMask(stringValue);
+        obj.setSensitiveStringKeepInitialKeepLastCharactersWithCustomMask(stringValue);
         obj.setStringValue(stringValue);
         return obj;
     }
@@ -46,14 +46,14 @@ class ObjectWithStringFieldTest {
     private static Stream<Arguments> arguments() {
         return Stream.of(
                 Arguments.of(buildTestObject("aabbccdd"),
-                        "{\"stringValue\":\"aabbccdd\",\"sensitiveString\":\"********\",\"sensitiveStringKeepLastCharacters\":\"**bbccdd\",\"sensitiveStringKeepFirstCharacters\":\"a*******\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"##bbccdd\",\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":\"a#bbccdd\"}",
-                        "{\"stringValue\":\"aabbccdd\",\"sensitiveString\":\"aabbccdd\",\"sensitiveStringKeepLastCharacters\":\"aabbccdd\",\"sensitiveStringKeepFirstCharacters\":\"aabbccdd\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabbccdd\",\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":\"aabbccdd\"}"),
+                        "{\"stringValue\":\"aabbccdd\",\"sensitiveString\":\"********\",\"sensitiveStringKeepLastCharacters\":\"**bbccdd\",\"sensitiveStringKeepInitialCharacters\":\"a*******\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"##bbccdd\",\"sensitiveStringKeepInitialKeepLastCharactersWithCustomMask\":\"a#bbccdd\"}",
+                        "{\"stringValue\":\"aabbccdd\",\"sensitiveString\":\"aabbccdd\",\"sensitiveStringKeepLastCharacters\":\"aabbccdd\",\"sensitiveStringKeepInitialCharacters\":\"aabbccdd\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabbccdd\",\"sensitiveStringKeepInitialKeepLastCharactersWithCustomMask\":\"aabbccdd\"}"),
                 Arguments.of(buildTestObject("aabb"),
-                        "{\"stringValue\":\"aabb\",\"sensitiveString\":\"****\",\"sensitiveStringKeepLastCharacters\":\"aabb\",\"sensitiveStringKeepFirstCharacters\":\"a***\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabb\",\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":\"aabb\"}",
-                        "{\"stringValue\":\"aabb\",\"sensitiveString\":\"aabb\",\"sensitiveStringKeepLastCharacters\":\"aabb\",\"sensitiveStringKeepFirstCharacters\":\"aabb\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabb\",\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":\"aabb\"}"),
+                        "{\"stringValue\":\"aabb\",\"sensitiveString\":\"****\",\"sensitiveStringKeepLastCharacters\":\"aabb\",\"sensitiveStringKeepInitialCharacters\":\"a***\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabb\",\"sensitiveStringKeepInitialKeepLastCharactersWithCustomMask\":\"aabb\"}",
+                        "{\"stringValue\":\"aabb\",\"sensitiveString\":\"aabb\",\"sensitiveStringKeepLastCharacters\":\"aabb\",\"sensitiveStringKeepInitialCharacters\":\"aabb\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabb\",\"sensitiveStringKeepInitialKeepLastCharactersWithCustomMask\":\"aabb\"}"),
                 Arguments.of(buildTestObject(null),
-                        "{\"stringValue\":null,\"sensitiveString\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepFirstCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null,\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":null}",
-                        "{\"stringValue\":null,\"sensitiveString\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepFirstCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null,\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":null}")
+                        "{\"stringValue\":null,\"sensitiveString\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepInitialCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null,\"sensitiveStringKeepInitialKeepLastCharactersWithCustomMask\":null}",
+                        "{\"stringValue\":null,\"sensitiveString\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepInitialCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null,\"sensitiveStringKeepInitialKeepLastCharactersWithCustomMask\":null}")
         );
     }
 

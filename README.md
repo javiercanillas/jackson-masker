@@ -61,7 +61,7 @@ And it will produce:
 Furthermore, you can customize the masking character and if you want to 
 leave some forst and last characters. 
 ```java
-    @MaskString(keepFirstCharacters = 1, keepLastCharacters = 4, maskCharacter = '-')
+    @MaskString(keepInitialCharacters = 1, keepLastCharacters = 4, maskCharacter = '-')
     String id;
 ```
 

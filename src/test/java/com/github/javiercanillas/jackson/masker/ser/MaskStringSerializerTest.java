@@ -27,7 +27,7 @@ class MaskStringSerializerTest {
 
     MaskStringSerializer maskStringSerializerNoArgs;
     MaskStringSerializer maskStringSerializerArgs;
-    final int keepFirstCharacters = 0;
+    final int keepInitialCharacters = 0;
     final int keepLastCharacters = 0;
     final char maskCharacter = '*';
 
@@ -38,7 +38,7 @@ class MaskStringSerializerTest {
     @BeforeEach
     void setup() {
         this.maskStringSerializerNoArgs = new MaskStringSerializer();
-        this.maskStringSerializerArgs = new MaskStringSerializer(this.innerSerializer, this.keepFirstCharacters,
+        this.maskStringSerializerArgs = new MaskStringSerializer(this.innerSerializer, this.keepInitialCharacters,
                 this.keepLastCharacters, this.maskCharacter);
     }
     @Test
@@ -63,7 +63,7 @@ class MaskStringSerializerTest {
         assertEquals(MaskStringSerializer.class, serializer.getClass());
         final var maskStringSerializer = (MaskStringSerializer) serializer;
         assertEquals(this.maskStringSerializerArgs.getMaskCharacter(), maskStringSerializer.getMaskCharacter());
-        assertEquals(this.maskStringSerializerArgs.getKeepFirstCharacters(), maskStringSerializer.getKeepFirstCharacters());
+        assertEquals(this.maskStringSerializerArgs.getKeepInitialCharacters(), maskStringSerializer.getKeepInitialCharacters());
         assertEquals(this.maskStringSerializerArgs.getKeepLastCharacters(), maskStringSerializer.getKeepLastCharacters());
         assertEquals(mockedSerializer, maskStringSerializer.getNonMaskerSerializer());
 
@@ -81,7 +81,7 @@ class MaskStringSerializerTest {
         assertEquals(MaskStringSerializer.class, serializer.getClass());
         final var maskStringSerializer = (MaskStringSerializer) serializer;
         assertEquals(this.maskStringSerializerArgs.getMaskCharacter(), maskStringSerializer.getMaskCharacter());
-        assertEquals(this.maskStringSerializerArgs.getKeepFirstCharacters(), maskStringSerializer.getKeepFirstCharacters());
+        assertEquals(this.maskStringSerializerArgs.getKeepInitialCharacters(), maskStringSerializer.getKeepInitialCharacters());
         assertEquals(this.maskStringSerializerArgs.getKeepLastCharacters(), maskStringSerializer.getKeepLastCharacters());
         assertEquals(mockedSerializer, maskStringSerializer.getNonMaskerSerializer());
 
@@ -143,7 +143,7 @@ class MaskStringSerializerTest {
         assertEquals(MaskStringSerializer.class, delegatee.getClass());
         final var maskStringSerializerDelegatee = (MaskStringSerializer) delegatee;
         assertEquals(this.maskStringSerializerArgs.getMaskCharacter(), maskStringSerializerDelegatee.getMaskCharacter());
-        assertEquals(this.maskStringSerializerArgs.getKeepFirstCharacters(), maskStringSerializerDelegatee.getKeepFirstCharacters());
+        assertEquals(this.maskStringSerializerArgs.getKeepInitialCharacters(), maskStringSerializerDelegatee.getKeepInitialCharacters());
         assertEquals(this.maskStringSerializerArgs.getKeepLastCharacters(), maskStringSerializerDelegatee.getKeepLastCharacters());
         assertEquals(mockedSerializer, maskStringSerializerDelegatee.getNonMaskerSerializer());
         verify(innerSerializer, times(1)).getDelegatee();

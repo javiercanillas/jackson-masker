@@ -35,8 +35,8 @@ class MaskUtilsTest {
 
     @ParameterizedTest
     @MethodSource("stringArguments")
-    void mask(String value, int keepFirsts, int keepLast, char maskChar, String result) {
-        assertEquals(result, MaskUtils.mask(value, keepFirsts, keepLast, maskChar));
+    void mask(String value, int keepInitials, int keepLast, char maskChar, String result) {
+        assertEquals(result, MaskUtils.mask(value, keepInitials, keepLast, maskChar));
     }
 
     private static Stream<Arguments> stringArrayArguments() {
@@ -52,8 +52,8 @@ class MaskUtilsTest {
 
     @ParameterizedTest
     @MethodSource("stringArrayArguments")
-    void mask(String[] value, int keepFirst, int keepLast, char maskChar, String[] result) {
-        final String[] masked = MaskUtils.mask(value, keepFirst, keepLast, maskChar);
+    void mask(String[] value, int keepInitial, int keepLast, char maskChar, String[] result) {
+        final String[] masked = MaskUtils.mask(value, keepInitial, keepLast, maskChar);
         if (value == null) {
             assertNull(masked);
         } else {
@@ -74,8 +74,8 @@ class MaskUtilsTest {
 
     @ParameterizedTest
     @MethodSource("stringListArguments")
-    void mask(List<String> value, int keepFirst, int keepLast, char maskChar, List<String> result) {
-        final List<String> masked = MaskUtils.mask(value, keepFirst, keepLast, maskChar);
+    void mask(List<String> value, int keepInitial, int keepLast, char maskChar, List<String> result) {
+        final List<String> masked = MaskUtils.mask(value, keepInitial, keepLast, maskChar);
         if (value == null) {
             assertNull(masked);
         } else {
@@ -96,8 +96,8 @@ class MaskUtilsTest {
 
     @ParameterizedTest
     @MethodSource("stringSetArguments")
-    void mask(Set<String> value, int keepFirst, int keepLast, char maskChar, Set<String> result) {
-        final Set<String> masked = MaskUtils.mask(value, keepFirst, keepLast, maskChar);
+    void mask(Set<String> value, int keepInitial, int keepLast, char maskChar, Set<String> result) {
+        final Set<String> masked = MaskUtils.mask(value, keepInitial, keepLast, maskChar);
         if (value == null) {
             assertNull(masked);
         } else {
@@ -121,8 +121,8 @@ class MaskUtilsTest {
 
     @ParameterizedTest
     @MethodSource("stringValueMapArguments")
-    void mask(Map<?, String> value, int keepFirst, int keepLast, char maskChar, Map<?, String> result) {
-        final Map<?, String> masked = MaskUtils.maskMapValues(value, keepFirst, keepLast, maskChar);
+    void mask(Map<?, String> value, int keepInitial, int keepLast, char maskChar, Map<?, String> result) {
+        final Map<?, String> masked = MaskUtils.maskMapValues(value, keepInitial, keepLast, maskChar);
         if (value == null) {
             assertNull(masked);
         } else {

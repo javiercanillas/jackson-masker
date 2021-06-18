@@ -32,7 +32,7 @@ public class MaskStringSerializer extends JsonSerializer<Object> implements Cont
     @Getter
     private final JsonSerializer<Object> nonMaskerSerializer;
     @Getter
-    private final int keepFirstCharacters;
+    private final int keepInitialCharacters;
     @Getter
     private final int keepLastCharacters;
     @Getter
@@ -43,13 +43,13 @@ public class MaskStringSerializer extends JsonSerializer<Object> implements Cont
      * serialization.
      */
     public MaskStringSerializer() {
-        this(null, MaskString.DEFAULTS_KEEP_FIRST_CHARACTERS, MaskString.DEFAULTS_KEEP_LAST_CHARACTERS, MaskString.DEFAULTS_MASK_CHARACTER);
+        this(null, MaskString.DEFAULTS_KEEP_INITIAL_CHARACTERS, MaskString.DEFAULTS_KEEP_LAST_CHARACTERS, MaskString.DEFAULTS_MASK_CHARACTER);
     }
 
-    public MaskStringSerializer(final JsonSerializer<Object> nonMaskerSerializer, final int keepFirstCharacters,
+    public MaskStringSerializer(final JsonSerializer<Object> nonMaskerSerializer, final int keepInitialCharacters,
                                 final int keepLastCharacters, final char maskCharacter) {
         this.nonMaskerSerializer = nonMaskerSerializer;
-        this.keepFirstCharacters = keepFirstCharacters;
+        this.keepInitialCharacters = keepInitialCharacters;
         this.keepLastCharacters = keepLastCharacters;
         this.maskCharacter = maskCharacter;
     }
@@ -119,7 +119,7 @@ public class MaskStringSerializer extends JsonSerializer<Object> implements Cont
     public JsonSerializer<?> createContextual(final SerializerProvider serializers, final BeanProperty property) throws JsonMappingException {
         var annotation = Optional.ofNullable(property).map(prop -> prop.getAnnotation(MaskString.class));
         return new MaskStringSerializer(serializers.findValueSerializer(property.getType(), property),
-                Math.max(0, annotation.map(MaskString::keepFirstCharacters).orElse(MaskString.DEFAULTS_KEEP_FIRST_CHARACTERS)),
+                Math.max(0, annotation.map(MaskString::keepInitialCharacters).orElse(MaskString.DEFAULTS_KEEP_INITIAL_CHARACTERS)),
                 Math.max(0, annotation.map(MaskString::keepLastCharacters).orElse(MaskString.DEFAULTS_KEEP_LAST_CHARACTERS)),
                 annotation.map(MaskString::maskCharacter).orElse(MaskString.DEFAULTS_MASK_CHARACTER));
     }
@@ -128,15 +128,15 @@ public class MaskStringSerializer extends JsonSerializer<Object> implements Cont
         Object newValue;
         if (Masked.isEnabled(serializers)) {
             if (value instanceof String) {
-                newValue = MaskUtils.mask((String) value, this.keepFirstCharacters, this.keepLastCharacters, this.maskCharacter);
+                newValue = MaskUtils.mask((String) value, this.keepInitialCharacters, this.keepLastCharacters, this.maskCharacter);
             } else if (value.getClass().isArray()) {
-                newValue = MaskUtils.mask((String[]) value, this.keepFirstCharacters, this.keepLastCharacters, this.maskCharacter);
+                newValue = MaskUtils.mask((String[]) value, this.keepInitialCharacters, this.keepLastCharacters, this.maskCharacter);
             } else if (value instanceof List) {
-                newValue = MaskUtils.mask((List<String>) value, this.keepFirstCharacters, this.keepLastCharacters, this.maskCharacter);
+                newValue = MaskUtils.mask((List<String>) value, this.keepInitialCharacters, this.keepLastCharacters, this.maskCharacter);
             } else if (value instanceof Set) {
-                newValue = MaskUtils.mask((Set<String>) value, this.keepFirstCharacters, this.keepLastCharacters, this.maskCharacter);
+                newValue = MaskUtils.mask((Set<String>) value, this.keepInitialCharacters, this.keepLastCharacters, this.maskCharacter);
             } else if (value instanceof Map) {
-                newValue = MaskUtils.maskMapValues((Map<?, String>) value, this.keepFirstCharacters, this.keepLastCharacters, this.maskCharacter);
+                newValue = MaskUtils.maskMapValues((Map<?, String>) value, this.keepInitialCharacters, this.keepLastCharacters, this.maskCharacter);
             } else {
                 // ups!! value type is not supported :(
                 newValue = value;
@@ -150,7 +150,7 @@ public class MaskStringSerializer extends JsonSerializer<Object> implements Cont
     private JsonSerializer<Object> wrappedResultOrElseNull(final Supplier<JsonSerializer<?>> supplier) {
         return Optional.ofNullable(supplier.get())
                 .map(JsonSerializer.class::cast)
-                .map(ser -> new MaskStringSerializer(ser, this.keepFirstCharacters, this.keepLastCharacters, this.maskCharacter))
+                .map(ser -> new MaskStringSerializer(ser, this.keepInitialCharacters, this.keepLastCharacters, this.maskCharacter))
                 .orElse(null);
     }
 }
