@@ -59,16 +59,16 @@ And it will produce:
 }
 ```
 Furthermore, you can customize the masking character and if you want to 
-leave some last characters. 
+leave some forst and last characters. 
 ```java
-    @MaskString(keepLastCharacters = 6, maskCharacter = '-')
+    @MaskString(keepFirstCharacters = 1, keepLastCharacters = 4, maskCharacter = '-')
     String id;
 ```
 
 The produced json in this case would be:
 ```json
 {
-  "id": "--cd1234"
+  "id": "a---1234"
 }
 ```
 
