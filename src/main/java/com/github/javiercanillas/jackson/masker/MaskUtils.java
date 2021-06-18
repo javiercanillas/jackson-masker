@@ -14,8 +14,10 @@ import java.util.stream.Stream;
  */
 @SuppressWarnings("java:S1168")
 public final class MaskUtils {
+    public static final int DEFAULTS_KEEP_FIRST_CHARACTERS = 0;
     public static final int DEFAULTS_KEEP_LAST_CHARACTERS = 0;
     public static final char DEFAULT_MASK_CHARACTER = '*';
+
 
     private MaskUtils() { }
 
@@ -25,19 +27,20 @@ public final class MaskUtils {
      * <p>
      * For example:  <code>mask(Set.of("hello"), 2, '*')</code> will reproduce <code>***lo</code>
      * @param values set of values of string to be masked.
-     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param keepFirstCharacters quantity of characters to leave unmasked since the beginning
+     * @param keepLastCharacters quantity of characters to leave unmasked from last positions
      * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
      * {@code keepLastCharacters} it will not be masked.
      * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
-    public static Set<String> mask(final Set<String> values, final int keepLastCharacters,
+    public static Set<String> mask(final Set<String> values, final int keepFirstCharacters, final int keepLastCharacters,
                                    final char maskCharacter) {
         if (values == null) {
             return null;
         }
 
-        return mask(values.stream(), keepLastCharacters, maskCharacter)
+        return mask(values.stream(), keepFirstCharacters, keepLastCharacters, maskCharacter)
                 .collect(Collectors.toSet());
     }
 
@@ -47,19 +50,20 @@ public final class MaskUtils {
      * <p>
      * For example:  <code>mask(List.of("hello"), 2, '*')</code> will reproduce <code>***lo</code>
      * @param values values of strings to be masked.
-     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param keepFirstCharacters quantity of characters to leave unmasked since the beginning
+     * @param keepLastCharacters quantity of characters to leave unmasked from last positions
      * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
      * {@code keepLastCharacters} it will not be masked.
      * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
-    public static List<String> mask(final List<String> values, final int keepLastCharacters,
+    public static List<String> mask(final List<String> values, final int keepFirstCharacters, final int keepLastCharacters,
                                     final char maskCharacter) {
         if (values == null) {
             return null;
         }
 
-        return mask(values.stream(), keepLastCharacters, maskCharacter)
+        return mask(values.stream(), keepFirstCharacters, keepLastCharacters, maskCharacter)
                 .collect(Collectors.toList());
     }
 
@@ -69,19 +73,20 @@ public final class MaskUtils {
      * <p>
      * For example:  <code>mask(new String[] { "hello" }, 2, '*')</code> will reproduce <code>***lo</code>
      * @param array array of strings to be masked.
-     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param keepFirstCharacters quantity of characters to leave unmasked since the beginning
+     * @param keepLastCharacters quantity of characters to leave unmasked from last positions
      * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
      * {@code keepLastCharacters} it will not be masked.
      * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
-    public static String[] mask(final String[] array, final int keepLastCharacters,
+    public static String[] mask(final String[] array, final int keepFirstCharacters, final int keepLastCharacters,
                                 final char maskCharacter) {
         if (array == null) {
             return null;
         }
 
-        return mask(Arrays.stream(array), keepLastCharacters, maskCharacter)
+        return mask(Arrays.stream(array), keepFirstCharacters, keepLastCharacters, maskCharacter)
                 .collect(Collectors.toList()).toArray(new String[array.length]);
     }
 
@@ -91,25 +96,26 @@ public final class MaskUtils {
      * <p>
      * For example:  <code>mask(new String[] { "hello" }, 2, '*')</code> will reproduce <code>***lo</code>
      * @param map array of strings to be masked.
-     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param keepFirstCharacters quantity of characters to leave unmasked since the beginning
+     * @param keepLastCharacters quantity of characters to leave unmasked from last positions
      * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
      * {@code keepLastCharacters} it will not be masked.
      * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
     @SuppressWarnings("java:S1452")
-    public static Map<?, String> maskMapValues(Map<?, String> map, int keepLastCharacters, char maskCharacter) {
+    public static Map<?, String> maskMapValues(Map<?, String> map, final int keepFirstCharacters, int keepLastCharacters, char maskCharacter) {
         if (map == null) {
             return null;
         }
 
         return map.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> mask(e.getValue(), keepLastCharacters, maskCharacter)));
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> mask(e.getValue(), keepFirstCharacters, keepLastCharacters, maskCharacter)));
     }
 
-    private static Stream<String> mask(final Stream<String> stream, final int keepLastCharacters,
+    private static Stream<String> mask(final Stream<String> stream, final int keepFirstCharacters, final int keepLastCharacters,
                                 final char maskCharacter) {
-        return stream.map(value -> mask(value, keepLastCharacters, maskCharacter));
+        return stream.map(value -> mask(value, keepFirstCharacters, keepLastCharacters, maskCharacter));
     }
 
     /**
@@ -118,25 +124,31 @@ public final class MaskUtils {
      * <p>
      * For example:  <code>mask("hello", 2, '*')</code> will reproduce <code>***lo</code>
      * @param value string value to be masked.
-     * @param keepLastCharacters quantity of characters to leave unmasked
+     * @param keepFirstCharacters quantity of characters to leave unmasked since the beginning
+     * @param keepLastCharacters quantity of characters to leave unmasked from last positions
      * @param maskCharacter char to be used to replace masked positions
      * @return if value is null, it will return null, otherwise the masked value result. If value's length is smaller than
      * {@code keepLastCharacters} it will not be masked.
      * @throws IllegalArgumentException if {@code keepLastCharacters} is less than 0.
      */
-    public static String mask(final String value, final int keepLastCharacters,
+    public static String mask(final String value, final int keepFirstCharacters, final int keepLastCharacters,
                               final char maskCharacter) {
         if (value == null) {
             return null;
         }
+        if (keepFirstCharacters < 0) {
+            throw new IllegalArgumentException("Parameter keepFirstCharacters cannot be less than Zero.");
+        }
         if (keepLastCharacters < 0) {
             throw new IllegalArgumentException("Parameter keepLastCharacters cannot be less than Zero.");
         }
-        if (value.length() <= keepLastCharacters) {
+
+        if (value.length() <= (keepFirstCharacters + keepLastCharacters)) {
             return value;
         }
 
-        return repeat(maskCharacter, value.length() - keepLastCharacters)
+        return value.substring(0,keepFirstCharacters)
+                + repeat(maskCharacter, value.length() - (keepFirstCharacters + keepLastCharacters))
                 + value.substring(value.length() - keepLastCharacters);
     }
 

@@ -23,8 +23,12 @@ class ObjectWithStringFieldTest {
         private String sensitiveString;
         @MaskString(keepLastCharacters = 6)
         private String sensitiveStringKeepLastCharacters;
+        @MaskString(keepFirstCharacters = 1)
+        private String sensitiveStringKeepFirstCharacters;
         @MaskString(keepLastCharacters = 6, maskCharacter = '#')
         private String sensitiveStringKeepLastCharactersWithCustomMask;
+        @MaskString(keepFirstCharacters = 1, keepLastCharacters = 6, maskCharacter = '#')
+        private String sensitiveStringKeepFirstKeepLastCharactersWithCustomMask;
     }
 
     private static TestObject buildTestObject(String stringValue) {
@@ -32,7 +36,9 @@ class ObjectWithStringFieldTest {
         obj = new TestObject();
         obj.setSensitiveString(stringValue);
         obj.setSensitiveStringKeepLastCharacters(stringValue);
+        obj.setSensitiveStringKeepFirstCharacters(stringValue);
         obj.setSensitiveStringKeepLastCharactersWithCustomMask(stringValue);
+        obj.setSensitiveStringKeepFirstKeepLastCharactersWithCustomMask(stringValue);
         obj.setStringValue(stringValue);
         return obj;
     }
@@ -40,14 +46,14 @@ class ObjectWithStringFieldTest {
     private static Stream<Arguments> arguments() {
         return Stream.of(
                 Arguments.of(buildTestObject("aabbccdd"),
-                        "{\"stringValue\":\"aabbccdd\",\"sensitiveString\":\"********\",\"sensitiveStringKeepLastCharacters\":\"**bbccdd\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"##bbccdd\"}",
-                        "{\"stringValue\":\"aabbccdd\",\"sensitiveString\":\"aabbccdd\",\"sensitiveStringKeepLastCharacters\":\"aabbccdd\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabbccdd\"}"),
+                        "{\"stringValue\":\"aabbccdd\",\"sensitiveString\":\"********\",\"sensitiveStringKeepLastCharacters\":\"**bbccdd\",\"sensitiveStringKeepFirstCharacters\":\"a*******\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"##bbccdd\",\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":\"a#bbccdd\"}",
+                        "{\"stringValue\":\"aabbccdd\",\"sensitiveString\":\"aabbccdd\",\"sensitiveStringKeepLastCharacters\":\"aabbccdd\",\"sensitiveStringKeepFirstCharacters\":\"aabbccdd\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabbccdd\",\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":\"aabbccdd\"}"),
                 Arguments.of(buildTestObject("aabb"),
-                        "{\"stringValue\":\"aabb\",\"sensitiveString\":\"****\",\"sensitiveStringKeepLastCharacters\":\"aabb\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabb\"}",
-                        "{\"stringValue\":\"aabb\",\"sensitiveString\":\"aabb\",\"sensitiveStringKeepLastCharacters\":\"aabb\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabb\"}"),
+                        "{\"stringValue\":\"aabb\",\"sensitiveString\":\"****\",\"sensitiveStringKeepLastCharacters\":\"aabb\",\"sensitiveStringKeepFirstCharacters\":\"a***\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabb\",\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":\"aabb\"}",
+                        "{\"stringValue\":\"aabb\",\"sensitiveString\":\"aabb\",\"sensitiveStringKeepLastCharacters\":\"aabb\",\"sensitiveStringKeepFirstCharacters\":\"aabb\",\"sensitiveStringKeepLastCharactersWithCustomMask\":\"aabb\",\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":\"aabb\"}"),
                 Arguments.of(buildTestObject(null),
-                        "{\"stringValue\":null,\"sensitiveString\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null}",
-                        "{\"stringValue\":null,\"sensitiveString\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null}")
+                        "{\"stringValue\":null,\"sensitiveString\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepFirstCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null,\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":null}",
+                        "{\"stringValue\":null,\"sensitiveString\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepFirstCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null,\"sensitiveStringKeepFirstKeepLastCharactersWithCustomMask\":null}")
         );
     }
 

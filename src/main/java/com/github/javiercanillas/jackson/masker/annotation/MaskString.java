@@ -27,12 +27,20 @@ import java.lang.annotation.Target;
 public @interface MaskString {
     int DEFAULTS_KEEP_LAST_CHARACTERS = MaskUtils.DEFAULTS_KEEP_LAST_CHARACTERS;
     char DEFAULTS_MASK_CHARACTER = MaskUtils.DEFAULT_MASK_CHARACTER;
+    int DEFAULTS_KEEP_FIRST_CHARACTERS = MaskUtils.DEFAULTS_KEEP_FIRST_CHARACTERS;
 
     /**
      * Character to be used for masker. Defaults to {@link MaskString#DEFAULTS_MASK_CHARACTER} if none is set.
      * @return char to be used to replace masked positions
      */
     char maskCharacter() default DEFAULTS_MASK_CHARACTER;
+
+    /**
+     * Quantity of beginning characters to left unmasked. Defaults to {@link MaskString#DEFAULTS_KEEP_FIRST_CHARACTERS}
+     * if none is set. Only a ZERO or POSITIVE values are allowed.
+     * @return quantity of characters to leave unmasked
+     */
+    int keepFirstCharacters() default DEFAULTS_KEEP_FIRST_CHARACTERS;
 
     /**
      * Quantity of final characters to left unmasked. Defaults to {@link MaskString#DEFAULTS_KEEP_LAST_CHARACTERS}
