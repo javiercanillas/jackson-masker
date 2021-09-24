@@ -17,13 +17,13 @@
 
     <groupId>io.github.javiercanillas</groupId>
     <artifactId>jackson-masker</artifactId>
-    <version>0.9.3-SNAPSHOT</version>
+    <version>0.9.3</version>
 
     <scm>
         <url>https://github.com/javiercanillas/jackson-masker</url>
         <connection>scm:git:git://github.com/javiercanillas/jackson-masker.git</connection>
         <developerConnection>scm:git:git@github.com:javiercanillas/jackson-masker.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>jackson-masker-0.9.3</tag>
     </scm>
 
     <distributionManagement>
