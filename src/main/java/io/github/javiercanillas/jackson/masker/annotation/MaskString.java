@@ -1,10 +1,10 @@
-package com.github.javiercanillas.jackson.masker.annotation;
+package io.github.javiercanillas.jackson.masker.annotation;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.github.javiercanillas.jackson.masker.MaskUtils;
-import com.github.javiercanillas.jackson.masker.ser.MaskStringSerializer;
-import com.github.javiercanillas.jackson.masker.view.Masked;
+import io.github.javiercanillas.jackson.masker.MaskUtils;
+import io.github.javiercanillas.jackson.masker.ser.MaskStringSerializer;
+import io.github.javiercanillas.jackson.masker.view.Masked;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

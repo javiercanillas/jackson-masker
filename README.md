@@ -28,7 +28,7 @@ class EntityA {
 Well, with this class you can annotate this attribute as sensitive data like this:
 
 ```java
-import com.github.javiercanillas.jackson.masker.annotation.MaskString;
+import MaskString;
 
 class EntityA {
     @MaskString
@@ -46,7 +46,7 @@ class EntityA {
 And it will be masked when writing using a Jackson ObjectMapper like this:
 ```java
 ObjectMapper mapper = new ObjectMapper();
-final ObjectWriter maskedWriter = mapper.writerWithView(com.github.javiercanillas.jackson.masker.view.Masked.class);
+final ObjectWriter maskedWriter = mapper.writerWithView(io.github.javiercanillas.jackson.masker.view.Masked.class);
 final EntityA obj = new EntityA();
 obj.setId("abcd1234");
 
@@ -90,7 +90,7 @@ Step 1. Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 ```groovy
 	dependencies {
-	        implementation 'com.github.javiercanillas:jackson-masker:1.0.0'
+	        implementation 'io.github.javiercanillas:jackson-masker:1.0.0'
 	}
 ```
 
@@ -110,7 +110,7 @@ Step 2. Add the dependency
 
 ```xml
 	<dependency>
-	    <groupId>com.github.javiercanillas</groupId>
+	    <groupId>io.github.javiercanillas</groupId>
 	    <artifactId>jackson-masker</artifactId>
 	    <version>1.0.0</version>
 	</dependency>

@@ -1,4 +1,4 @@
-package com.github.javiercanillas.jackson.masker.view;
+package io.github.javiercanillas.jackson.masker.view;
 
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.github.javiercanillas.jackson.masker;
+package io.github.javiercanillas.jackson.masker;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

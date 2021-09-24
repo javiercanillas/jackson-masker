@@ -1,4 +1,4 @@
-package com.github.javiercanillas.jackson.masker.ser;
+package io.github.javiercanillas.jackson.masker.ser;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -11,9 +11,9 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;
 import com.fasterxml.jackson.databind.util.NameTransformer;
-import com.github.javiercanillas.jackson.masker.MaskUtils;
-import com.github.javiercanillas.jackson.masker.annotation.MaskString;
-import com.github.javiercanillas.jackson.masker.view.Masked;
+import io.github.javiercanillas.jackson.masker.MaskUtils;
+import io.github.javiercanillas.jackson.masker.annotation.MaskString;
+import io.github.javiercanillas.jackson.masker.view.Masked;
 import lombok.Getter;
 
 import java.io.IOException;
