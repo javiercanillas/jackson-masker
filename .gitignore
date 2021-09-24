@@ -4,6 +4,10 @@ target
 # Compiled class file
 *.class
 
+# maven release files
+pom.xml.releaseBackup
+release.properties
+
 # Log file
 *.log
 
