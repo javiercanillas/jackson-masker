@@ -15,7 +15,7 @@ your application, this library might be of some help.
 - String[]
 - Map<?, String>
 
-**Note:** If you consider a type might be missing or you like it on this list, feel free to contact me.
+**Note:** If you consider a type might be missing or you like it on this list, feel free to contact [me](https://github.com/javiercanillas/jackson-masker/issues).
 
 ## How to use
 Lets suppose you have an entity that has an email as part of its attributes:
