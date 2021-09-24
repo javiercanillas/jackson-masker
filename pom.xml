@@ -7,7 +7,7 @@
         If you have objects that are logged or write into files where masking is required, and you are already using
         Jackson ObjectMapper solution in your application, this library might be of some help.
     </description>
-
+    <url>https://github.com/javiercanillas/jackson-masker</url>
     <licenses>
         <license>
             <name>Apache License 2.0</name>
