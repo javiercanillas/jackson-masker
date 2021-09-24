@@ -1,4 +1,4 @@
-package com.github.javiercanillas.jackson.masker;
+package io.github.javiercanillas.jackson.masker;
 
 import java.util.Arrays;
 import java.util.List;

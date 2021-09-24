@@ -1,9 +1,9 @@
-package com.github.javiercanillas.jackson.masker.examples;
+package io.github.javiercanillas.jackson.masker.examples;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.javiercanillas.jackson.masker.annotation.MaskString;
-import com.github.javiercanillas.jackson.masker.view.Masked;
+import io.github.javiercanillas.jackson.masker.annotation.MaskString;
+import io.github.javiercanillas.jackson.masker.view.Masked;
 import lombok.Data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

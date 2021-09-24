@@ -1,7 +1,7 @@
-package com.github.javiercanillas.jackson.masker.view;
+package io.github.javiercanillas.jackson.masker.view;
 
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.github.javiercanillas.jackson.masker.annotation.MaskString;
+import io.github.javiercanillas.jackson.masker.annotation.MaskString;
 
 /**
  * Class used as View for {@link com.fasterxml.jackson.databind.ObjectMapper} to masked fields annotated with

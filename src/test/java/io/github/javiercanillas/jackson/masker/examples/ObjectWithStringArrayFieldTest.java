@@ -1,35 +1,34 @@
-package com.github.javiercanillas.jackson.masker.examples;
+package io.github.javiercanillas.jackson.masker.examples;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.javiercanillas.jackson.masker.annotation.MaskString;
-import com.github.javiercanillas.jackson.masker.view.Masked;
+import io.github.javiercanillas.jackson.masker.annotation.MaskString;
+import io.github.javiercanillas.jackson.masker.view.Masked;
 import lombok.Data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
 import java.util.stream.Stream;
 
-class ObjectWithStringListFieldTest {
+class ObjectWithStringArrayFieldTest {
 
     @Data
     public static class TestObject {
 
-        private List<String> stringValues;
+        private String[] stringValues;
         @MaskString
-        private List<String> sensitiveStrings;
+        private String[] sensitiveStrings;
         @MaskString(keepLastCharacters = 6)
-        private List<String> sensitiveStringKeepLastCharacters;
+        private String[] sensitiveStringKeepLastCharacters;
         @MaskString(keepLastCharacters = 6, maskCharacter = '#')
-        private List<String> sensitiveStringKeepLastCharactersWithCustomMask;
+        private String[] sensitiveStringKeepLastCharactersWithCustomMask;
     }
     private static TestObject buildTestObject() {
         return new TestObject();
     }
-    private static TestObject buildTestObject(List<String> stringValues) {
+    private static TestObject buildTestObject(String... stringValues) {
         var obj = buildTestObject();
         obj.setSensitiveStrings(stringValues);
         obj.setSensitiveStringKeepLastCharacters(stringValues);
@@ -40,15 +39,21 @@ class ObjectWithStringListFieldTest {
 
     private static Stream<Arguments> arguments() {
         return Stream.of(
-                Arguments.of(buildTestObject(List.of("aabbccdd", "eeffgghh")),
+                Arguments.of(buildTestObject("aabbccdd", "eeffgghh"),
                         "{\"stringValues\":[\"aabbccdd\",\"eeffgghh\"],\"sensitiveStrings\":[\"********\",\"********\"],\"sensitiveStringKeepLastCharacters\":[\"**bbccdd\",\"**ffgghh\"],\"sensitiveStringKeepLastCharactersWithCustomMask\":[\"##bbccdd\",\"##ffgghh\"]}",
                         "{\"stringValues\":[\"aabbccdd\",\"eeffgghh\"],\"sensitiveStrings\":[\"aabbccdd\",\"eeffgghh\"],\"sensitiveStringKeepLastCharacters\":[\"aabbccdd\",\"eeffgghh\"],\"sensitiveStringKeepLastCharactersWithCustomMask\":[\"aabbccdd\",\"eeffgghh\"]}"),
-                Arguments.of(buildTestObject(List.of("aabb", "ccdd")),
+                Arguments.of(buildTestObject("aabb", "ccdd"),
                         "{\"stringValues\":[\"aabb\",\"ccdd\"],\"sensitiveStrings\":[\"****\",\"****\"],\"sensitiveStringKeepLastCharacters\":[\"aabb\",\"ccdd\"],\"sensitiveStringKeepLastCharactersWithCustomMask\":[\"aabb\",\"ccdd\"]}",
                         "{\"stringValues\":[\"aabb\",\"ccdd\"],\"sensitiveStrings\":[\"aabb\",\"ccdd\"],\"sensitiveStringKeepLastCharacters\":[\"aabb\",\"ccdd\"],\"sensitiveStringKeepLastCharactersWithCustomMask\":[\"aabb\",\"ccdd\"]}"),
                 Arguments.of(buildTestObject(),
                         "{\"stringValues\":null,\"sensitiveStrings\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null}",
-                        "{\"stringValues\":null,\"sensitiveStrings\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null}")
+                        "{\"stringValues\":null,\"sensitiveStrings\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null}"),
+                Arguments.of(buildTestObject(null),
+                        "{\"stringValues\":null,\"sensitiveStrings\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null}",
+                        "{\"stringValues\":null,\"sensitiveStrings\":null,\"sensitiveStringKeepLastCharacters\":null,\"sensitiveStringKeepLastCharactersWithCustomMask\":null}"),
+                Arguments.of(buildTestObject(null, "abcdefg"),
+                        "{\"stringValues\":[null,\"abcdefg\"],\"sensitiveStrings\":[null,\"*******\"],\"sensitiveStringKeepLastCharacters\":[null,\"*bcdefg\"],\"sensitiveStringKeepLastCharactersWithCustomMask\":[null,\"#bcdefg\"]}",
+                        "{\"stringValues\":[null,\"abcdefg\"],\"sensitiveStrings\":[null,\"abcdefg\"],\"sensitiveStringKeepLastCharacters\":[null,\"abcdefg\"],\"sensitiveStringKeepLastCharactersWithCustomMask\":[null,\"abcdefg\"]}")
         );
     }
 
