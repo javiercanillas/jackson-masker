@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <name>Jackson masker</name>
+    <description>
+        Sensitive information (such us emails, IDs or phone numbers) is a serious problem to deal with.
+        If you have objects that are logged or write into files where masking is required, and you are already using
+        Jackson ObjectMapper solution in your application, this library might be of some help.
+    </description>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://github.com/javiercanillas/jackson-masker/blob/main/LICENSE</url>
+        </license>
+    </licenses>
 
     <groupId>io.github.javiercanillas</groupId>
     <artifactId>jackson-masker</artifactId>
