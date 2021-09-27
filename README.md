@@ -59,7 +59,7 @@ And it will produce:
 }
 ```
 Furthermore, you can customize the masking character and if you want to 
-leave some forst and last characters. 
+leave some first and last characters. 
 ```java
     @MaskString(keepInitialCharacters = 1, keepLastCharacters = 4, maskCharacter = '-')
     String id;
