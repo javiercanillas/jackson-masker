@@ -75,4 +75,4 @@ The produced json in this case would be:
 More examples on test and [wiki](https://github.com/javiercanillas/jackson-masker/wiki)
 
 ## How to install
-If you prefer to use maven central releases, you can find it [here](https://mvnrepository.com/artifact/io.github.javiercanillas/jackson-masker). Also, if you support [Jitpack.io](https://jitpack.io/) you can find it [here](https://jitpack.io/#javiercanillas/jackson-masker)
+If you prefer to use maven central releases, you can find it [here](https://search.maven.org/artifact/io.github.javiercanillas/jackson-masker). Also, if you support [Jitpack.io](https://jitpack.io/) you can find it [here](https://jitpack.io/#javiercanillas/jackson-masker)
