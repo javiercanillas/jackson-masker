@@ -45,6 +45,7 @@
         <sonar.projectKey>javiercanillas_jackson-masker</sonar.projectKey>
         <sonar.organization>javiercanillas</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <mockito.version>4.6.1</mockito.version>
     </properties>
 
     <dependencies>
@@ -63,13 +64,13 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>4.6.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>4.6.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
